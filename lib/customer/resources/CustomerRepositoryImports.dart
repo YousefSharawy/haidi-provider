@@ -1,0 +1,36 @@
+import 'dart:developer';
+import 'dart:io';
+
+import 'package:base_flutter/customer/models/EditCatModel.dart';
+import 'package:base_flutter/customer/models/FinancialModel.dart';
+import 'package:base_flutter/customer/models/HomeModel.dart';
+import 'package:base_flutter/customer/models/HomeModel.dart';
+import 'package:base_flutter/customer/models/OfferModel.dart';
+import 'package:base_flutter/customer/models/OrderDetailsModel.dart';
+import 'package:base_flutter/customer/models/OrderModel.dart';
+import 'package:base_flutter/customer/models/categories_model.dart';
+import 'package:base_flutter/customer/models/entities/add_product_dots.dart';
+import 'package:base_flutter/customer/models/entities/add_service_dots.dart';
+import 'package:base_flutter/customer/models/entities/profile_model.dart';
+import 'package:base_flutter/customer/models/main_cat_model.dart';
+import 'package:base_flutter/customer/models/product_model.dart';
+import 'package:base_flutter/customer/models/service_order_details_model.dart';
+import 'package:base_flutter/customer/models/services_model.dart';
+import 'package:base_flutter/general/blocks/lang_cubit/lang_cubit.dart';
+import 'package:base_flutter/general/blocks/user_cubit/user_cubit.dart';
+import 'package:base_flutter/general/models/DropDownModel.dart';
+import 'package:base_flutter/general/models/user_model.dart';
+import 'package:base_flutter/general/models/user_model.dart';
+import 'package:base_flutter/general/models/user_model.dart';
+import 'package:base_flutter/general/models/user_model.dart';
+import 'package:base_flutter/general/utilities/http/dio/http/GenericHttp.dart';
+import 'package:base_flutter/general/utilities/http/dio/modals/LoadingDialog.dart';
+import 'package:base_flutter/general/utilities/http/dio/utils/DioUtils.dart';
+import 'package:base_flutter/general/utilities/utils_functions/ApiNames.dart';
+import 'package:base_flutter/general/utilities/utils_functions/LoadingDialog.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+
+part 'CustomerRepository.dart';
+part 'CustomerHttpMethods.dart';

@@ -1,0 +1,30 @@
+import 'package:base_flutter/customer/models/HomeModel.dart';
+import 'package:base_flutter/customer/screens/Contact/ContactImports.dart';
+import 'package:base_flutter/customer/screens/Offers/OffersImports.dart';
+import 'package:base_flutter/customer/screens/Orders/OrdersImports.dart';
+import 'package:base_flutter/customer/screens/Services/ServicesImports.dart';
+import 'package:base_flutter/customer/screens/account/AccountImports.dart';
+import 'package:base_flutter/customer/screens/account/tabs/profile/ProfileImports.dart';
+import 'package:base_flutter/customer/screens/home/HomeImports.dart';
+import 'package:base_flutter/customer/screens/notification/NotificationsWImports.dart';
+import 'package:base_flutter/customer/screens/order_details/OrderDetailsImports.dart';
+import 'package:base_flutter/customer/screens/store/StoreImports.dart';
+import 'package:base_flutter/customer/screens/wallet/wallet_imports.dart';
+import 'package:base_flutter/customer/screens/work_dates/WorkDatesImports.dart';
+import 'package:base_flutter/general/blocks/user_cubit/user_cubit.dart';
+import 'package:base_flutter/general/constants/MyColors.dart';
+import 'package:base_flutter/general/resources/GeneralRepoImports.dart';
+import 'package:base_flutter/general/screens/terms/TermsImports.dart';
+import 'package:base_flutter/general/utilities/tf_custom_widgets/tf_custom_widgets.dart';
+import 'package:base_flutter/general/utilities/utils_functions/Navigator.dart';
+import 'package:flutter/material.dart';
+import 'package:provider/src/provider.dart';
+import 'package:tf_validator/localization/LocalizationMethods.dart';
+
+import '../../../../general/MyApp.dart';
+
+part 'BuildLatestNotifications.dart';
+part 'BuildHomeDrawer.dart';
+part 'BuildDrawerItem.dart';
+part 'BuildReceivedOrders.dart';
+part 'BuildDeleteAccountAlertDialog.dart';

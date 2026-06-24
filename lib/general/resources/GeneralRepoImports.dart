@@ -1,0 +1,37 @@
+import 'dart:convert';
+import 'dart:developer';
+import 'dart:io';
+import 'package:base_flutter/customer/models/cities_models.dart';
+import 'package:base_flutter/customer/models/download_document_model.dart';
+import 'package:base_flutter/customer/models/entities/register_dots.dart';
+import 'package:base_flutter/customer/screens/work_times/WorkTimesImports.dart';
+import 'package:base_flutter/general/blocks/auth_cubit/auth_cubit.dart';
+import 'package:base_flutter/general/blocks/lang_cubit/lang_cubit.dart';
+import 'package:base_flutter/general/blocks/user_cubit/user_cubit.dart';
+import 'package:base_flutter/general/constants/MyColors.dart';
+import 'package:base_flutter/general/models/QuestionModel.dart';
+import 'package:base_flutter/general/models/user_model.dart';
+import 'package:base_flutter/general/screens/SelectCategries/SelectCategoriesImports.dart';
+import 'package:base_flutter/general/screens/login/LoginImports.dart';
+import 'package:base_flutter/general/screens/reset_password/ResetPasswordImports.dart';
+import 'package:base_flutter/general/screens/select_lang/SelectLangImports.dart';
+import 'package:base_flutter/general/utilities/http/dio/http/GenericHttp.dart';
+import 'package:base_flutter/general/utilities/http/dio/modals/LoadingDialog.dart';
+import 'package:base_flutter/general/utilities/http/dio/utils/DioUtils.dart';
+import 'package:base_flutter/general/utilities/http/dio/utils/GlobalState.dart';
+import 'package:base_flutter/general/utilities/utils_functions/ApiNames.dart';
+import 'package:base_flutter/general/utilities/utils_functions/LoadingDialog.dart';
+import 'package:base_flutter/general/utilities/utils_functions/Navigator.dart';
+import 'package:base_flutter/general/utilities/utils_functions/UtilsImports.dart';
+import 'package:dio/dio.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
+import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:tf_validator/localization/LocalizationMethods.dart';
+
+import '../../customer/models/categories_model.dart';
+import '../../customer/models/upload_document_model.dart';
+
+part 'GeneralRepository.dart';
+part 'GeneralHttpMethods.dart';
