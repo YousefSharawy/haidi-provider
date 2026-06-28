@@ -1,6 +1,6 @@
 class ApiNames{
 
-  static const String baseUrl = "https://heidi.ip4s.com/api/v1/";
+  static const String baseUrl = "https://63.181.125.139/api/v1/";
   static const String branch = "1";
 
   static const String aboutApp = "AboutApp";

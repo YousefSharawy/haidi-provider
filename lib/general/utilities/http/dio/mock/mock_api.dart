@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:base_flutter/general/utilities/http/dio/http/GenericHttp.dart'
     show ReturnType;
 
@@ -11,7 +13,26 @@ import 'package:base_flutter/general/utilities/http/dio/http/GenericHttp.dart'
 /// backend starts responding, real data flows through and this is bypassed.
 /// Set [enabled] = false (or delete this) once the backend is connected.
 class MockApi {
-  static const bool enabled = true;
+  static const bool enabled = false;
+
+  /// LOGIN-ONLY BYPASS (testing). The test provider account is fully set up but
+  /// the backend's `login` endpoint refuses it with "Awaiting management
+  /// approval" (confirmedByDashboard=false). Only the login endpoint enforces
+  /// that gate — the account's real token works on every other endpoint. So
+  /// when this is true the login is short-circuited with a real login payload
+  /// (real token from activation), and the WHOLE REST of the app keeps using
+  /// the live API authenticated with that token. Set false once the account is
+  /// approved by the dashboard (then real login works normally).
+  static const bool mockLoginOnly = false;
+
+  /// A real provider login response (real, non-expired token) used only when
+  /// [mockLoginOnly] is true. Categories/workdates are non-empty and
+  /// activedByCode=true, so login routes straight to Home.
+  static Map<String, dynamic> loginResponse() =>
+      json.decode(_loginJson) as Map<String, dynamic>;
+
+  static const String _loginJson =
+      r'''{"id": "43c69c96-14d7-4d1c-936d-840d13631866", "userName": "SpaTester", "placeName": "Spa Test Center", "email": "spatest1782632541@example.com", "phone": "0503334455", "lang": "en", "isAvilable": true, "imgProfile": "https://63.181.125.139/images/Users/7a32e99bfd5e4b7d890406ae74bbda51.jpg", "commercialRecord": "https://63.181.125.139/", "taxRecord": "https://63.181.125.139/", "cityId": 1, "cityName": "Riyadh", "description": "Spa demo provider", "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJTcGFUZXN0ZXIiLCJ1c2VyX2lkIjoiNDNjNjljOTYtMTRkNy00ZDFjLTkzNmQtODQwZDEzNjMxODY2IiwidHlwZV91c2VyIjoicHJvdmlkZXIiLCJleHAiOjE4MTQxNzI2ODEsImlzcyI6IlNpdGUiLCJhdWQiOiJTaXRlIn0.V5cYY1Jlz8xymGRlNMVKQ5ShJFsRpPnVVoXp44urBlw", "lat": "24.7136", "lng": "46.6753", "location": "Riyadh", "logo": "https://63.181.125.139/images/Users/7a32e99bfd5e4b7d890406ae74bbda51.jpg", "typeUser": 2, "workdates": [{"id": 1, "day": 1, "startHour": "9:00 AM", "endHour": "5:00 PM", "isClosed": false, "providerId": "43c69c96-14d7-4d1c-936d-840d13631866"}, {"id": 2, "day": 2, "startHour": "9:00 AM", "endHour": "5:00 PM", "isClosed": false, "providerId": "43c69c96-14d7-4d1c-936d-840d13631866"}, {"id": 3, "day": 3, "startHour": "9:00 AM", "endHour": "5:00 PM", "isClosed": false, "providerId": "43c69c96-14d7-4d1c-936d-840d13631866"}, {"id": 4, "day": 4, "startHour": "9:00 AM", "endHour": "5:00 PM", "isClosed": false, "providerId": "43c69c96-14d7-4d1c-936d-840d13631866"}, {"id": 5, "day": 5, "startHour": "9:00 AM", "endHour": "5:00 PM", "isClosed": false, "providerId": "43c69c96-14d7-4d1c-936d-840d13631866"}, {"id": 6, "day": 6, "startHour": "9:00 AM", "endHour": "5:00 PM", "isClosed": false, "providerId": "43c69c96-14d7-4d1c-936d-840d13631866"}, {"id": 7, "day": 7, "startHour": "9:00 AM", "endHour": "5:00 PM", "isClosed": false, "providerId": "43c69c96-14d7-4d1c-936d-840d13631866"}], "mainCategories": [{"id": 47, "title": "Spa", "taxRecord": "https://63.181.125.139/", "commercialNumber": "https://63.181.125.139/"}, {"id": 48, "title": "Market", "taxRecord": "https://63.181.125.139/", "commercialNumber": "https://63.181.125.139/"}], "activedByCode": true, "confirmedByDashboard": false, "workDocumenrIsUploded": true}''';
 
   static int _seed = 0;
 

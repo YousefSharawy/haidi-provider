@@ -16,6 +16,7 @@ import 'package:base_flutter/general/screens/login/LoginImports.dart';
 import 'package:base_flutter/general/screens/reset_password/ResetPasswordImports.dart';
 import 'package:base_flutter/general/screens/select_lang/SelectLangImports.dart';
 import 'package:base_flutter/general/utilities/http/dio/http/GenericHttp.dart';
+import 'package:base_flutter/general/utilities/http/dio/mock/mock_api.dart';
 import 'package:base_flutter/general/utilities/http/dio/modals/LoadingDialog.dart';
 import 'package:base_flutter/general/utilities/http/dio/utils/DioUtils.dart';
 import 'package:base_flutter/general/utilities/http/dio/utils/GlobalState.dart';
