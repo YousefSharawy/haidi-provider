@@ -478,5 +478,12 @@
   "withAr": "in Arabic",
   "withEn": "in English",
   "noAddress": "No address",
-  "selectLocationOnMap": "Select location on the map"
+  "selectLocationOnMap": "Select location on the map",
+  "saturday": "Saturday",
+  "sunday": "Sunday",
+  "monday": "Monday",
+  "tuesday": "Tuesday",
+  "wednesday": "Wednesday",
+  "thursday": "Thursday",
+  "friday": "Friday"
 }

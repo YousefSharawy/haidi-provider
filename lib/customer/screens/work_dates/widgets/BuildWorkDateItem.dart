@@ -24,7 +24,7 @@ class BuildWorkDateItem extends StatelessWidget {
                       child: FittedBox(
                         fit: BoxFit.scaleDown,
                         child: MyText(
-                          title: state.data[index].day ?? '',
+                          title: _localizedDay(context, state.data[index]),
                           size: 12,
                           fontWeight: FontWeight.bold,
                         ),
@@ -99,4 +99,22 @@ class BuildWorkDateItem extends StatelessWidget {
         },
       ),
     );  }
+}
+
+/// Weekday label localized from [WorkTimeModel.dayNum] (1=Sat … 7=Fri) so it
+/// follows the app language instead of the hardcoded Arabic name in the model.
+/// Falls back to the model's [day] string if the number is missing/unknown.
+String _localizedDay(BuildContext context, WorkTimeModel model) {
+  const keys = {
+    1: 'saturday',
+    2: 'sunday',
+    3: 'monday',
+    4: 'tuesday',
+    5: 'wednesday',
+    6: 'thursday',
+    7: 'friday',
+  };
+  final key = keys[model.dayNum];
+  if (key == null) return model.day ?? '';
+  return tr(context, key);
 }

@@ -481,5 +481,12 @@
   "Mada": "مدى",
   "Sadad": "سداد",
   "noAddress": "لا يوجد عنوان",
-  "selectLocationOnMap": "حدد الموقع على الخريطة"
+  "selectLocationOnMap": "حدد الموقع على الخريطة",
+  "saturday": "السبت",
+  "sunday": "الأحد",
+  "monday": "الإثنين",
+  "tuesday": "الثلاثاء",
+  "wednesday": "الأربعاء",
+  "thursday": "الخميس",
+  "friday": "الجمعة"
 }
