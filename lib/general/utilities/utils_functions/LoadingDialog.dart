@@ -35,6 +35,7 @@ class LoadingDialog {
   }
 
   static showSnackBar(BuildContext context, String message) {
+    final messenger = ScaffoldMessenger.of(context);
     final snackBar = SnackBar(
       backgroundColor: MyColors.blackOpacity,
       padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
@@ -47,10 +48,10 @@ class LoadingDialog {
         textColor: MyColors.white,
         label: "إخفاء",
         onPressed: () {
-          ScaffoldMessenger.of(context).hideCurrentSnackBar();
+          messenger.hideCurrentSnackBar();
         },
       ),
     );
-    ScaffoldMessenger.of(context).showSnackBar(snackBar);
+    messenger.showSnackBar(snackBar);
   }
 }
