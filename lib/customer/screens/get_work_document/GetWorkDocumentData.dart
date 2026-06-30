@@ -15,19 +15,35 @@ class GetWorkDocumentData {
   }
 
   Future<void> requestDownload(BuildContext context , String userId) async {
-    String _localPath = (await _findLocalPath())!;
-    data!.documentLink = await FlutterDownloader.enqueue(
-      url: data!.documentLink!,
+    final String? documentLink = data?.documentLink;
+    if (documentLink == null || documentLink.isEmpty) {
+      CustomToast.showSimpleToast(msg: tr(context, "errorTryLater"));
+      return;
+    }
+
+    final String? _localPath = await _findLocalPath();
+    if (_localPath == null) {
+      CustomToast.showSimpleToast(msg: tr(context, "errorTryLater"));
+      return;
+    }
+
+    // enqueue() returns a download task id (a UUID), NOT a url.
+    // Keep it in a separate variable so we don't overwrite documentLink,
+    // otherwise the next download would try to use the task id as the url.
+    final String? taskId = await FlutterDownloader.enqueue(
+      url: documentLink,
       // headers: {"auth": "test_for_sql_encoding"},
       savedDir: _localPath,
       showNotification: true,
       openFileFromNotification: true,
       saveInPublicStorage: true,
     );
-    if (data!.documentLink != null) {
+
+    if (taskId != null) {
       CustomToast.showSimpleToast(msg: tr(context, "downloadingFile"));
       Future.delayed(Duration(milliseconds: 500), () {
-        Nav.navigateTo(UploadWorkDocument(text: data!.description! , userId: userId,),
+        Nav.navigateTo(
+            UploadWorkDocument(text: data?.description ?? "", userId: userId),
             navigatorType: NavigatorType.push);
       });
     }
