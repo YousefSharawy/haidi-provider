@@ -294,40 +294,74 @@ class DioHelper {
   showErrorMessage(Response? response) {
     if (response == null) {
       log("failed response Check Server");
-      CustomToast.showToastNotification("Check Server");
-    } else {
-      log("failed response ${response.statusCode}");
-      log("failed response ${response.data}");
-      var data = response.data;
-      if (data is String) data = json.decode(response.data);
-      switch (response.statusCode) {
-        case 500:
-          CustomToast.showToastNotification(data["msg"].toString());
-          break;
-        case 400:
-          if (data["errors"] != null) {
-            Map<String, dynamic> errors = data["errors"];
-            log("response errors $errors");
-            errors.forEach((key, value) {
-              List<String> lst = List<String>.from(value.map((e) => e));
-              lst.forEach((e) {
-                CustomToast.showToastNotification(e);
-              });
-            });
-          } else {
-            CustomToast.showToastNotification(data["msg"].toString());
-          }
-          break;
-        case 401:
-        // CustomToast.showToastNotification(data["msg"].toString());
-        // log('msgsssssssssssssssssssssssssssssssssssssssss${data["msg"]}');
-        // break;
-        case 301:
-        case 302:
-          tokenExpired();
-          break;
+      CustomToast.showToastNotification(_serverErrorMessage(null));
+      return;
+    }
+    log("failed response ${response.statusCode}");
+    log("failed response ${response.data}");
+    var data = response.data;
+    if (data is String) {
+      try {
+        data = json.decode(data);
+      } catch (_) {
+        // body wasn't JSON (e.g. an HTML 500 page) — keep the raw string.
       }
     }
+    switch (response.statusCode) {
+      case 500:
+        CustomToast.showToastNotification(_serverErrorMessage(data));
+        break;
+      case 400:
+        if (data is Map && data["errors"] != null) {
+          final errors = Map<String, dynamic>.from(data["errors"]);
+          log("response errors $errors");
+          errors.forEach((key, value) {
+            if (value is List) {
+              for (final e in value) {
+                CustomToast.showToastNotification(e.toString());
+              }
+            } else if (value != null) {
+              CustomToast.showToastNotification(value.toString());
+            }
+          });
+        } else {
+          CustomToast.showToastNotification(_serverErrorMessage(data));
+        }
+        break;
+      case 401:
+      // CustomToast.showToastNotification(data["msg"].toString());
+      // log('msgsssssssssssssssssssssssssssssssssssssssss${data["msg"]}');
+      // break;
+      case 301:
+      case 302:
+        tokenExpired();
+        break;
+    }
+  }
+
+  /// Pulls a human-readable message out of an error body, never returning the
+  /// literal string "null". ASP.NET 500s come back as
+  /// {"title":"An error occurred...","status":500} with NO "msg" key, so the old
+  /// `data["msg"].toString()` surfaced a toast that literally said "null".
+  String _serverErrorMessage(dynamic data) {
+    try {
+      if (data is String) {
+        final trimmed = data.trim();
+        if (trimmed.isNotEmpty && !trimmed.startsWith("<")) return trimmed;
+      } else if (data is Map) {
+        // Prefer a real API message; ignore the generic ASP.NET problem-details
+        // "title" ("An error occurred while processing your request.") so a bare
+        // 500 shows a clean localized message instead of server boilerplate.
+        final msg = data["msg"] ?? data["message"];
+        if (msg != null && msg.toString().trim().isNotEmpty) {
+          return msg.toString();
+        }
+      }
+    } catch (_) {}
+    final lang = context.read<LangCubit>().state.locale.languageCode;
+    return lang == "ar"
+        ? "حدث خطأ، حاول مرة أخرى"
+        : "Something went wrong, please try again";
   }
 
   _getHeader() async {
